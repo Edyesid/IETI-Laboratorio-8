@@ -11,12 +11,10 @@ public class SpringBootSecureApiApplication {
 
 
 	//@Bean
-	public FilterRegistrationBean jwtFilter()
-	{
+	public FilterRegistrationBean jwtFilter() {
 		final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter( new JwtFilter() );
 		registrationBean.addUrlPatterns( "/api/*" );
-
 		return registrationBean;
 	}
 

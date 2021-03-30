@@ -6,7 +6,6 @@ package com.eci.cosw.springbootsecureapi.model;
  */
 public class User
 {
-
     private long id;
 
     private String email;
@@ -19,7 +18,6 @@ public class User
 
     private String username;
 
-
     public User()
     {
     }
@@ -31,7 +29,6 @@ public class User
         this.firstname = firstname;
         this.lastname = lastname;
     }
-
 
     public long getId()
     {

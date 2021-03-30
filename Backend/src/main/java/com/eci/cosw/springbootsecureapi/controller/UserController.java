@@ -18,9 +18,8 @@ import java.util.Date;
  * 8/21/17.
  */
 @RestController
-@RequestMapping( "user" )
-public class UserController
-{
+@RequestMapping( "/user" )
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -37,7 +36,7 @@ public class UserController
             throw new ServletException( "Please fill in username and password" );
         }
 
-        String username = login.getUsername();
+        String useremail = login.getEmail();
         String password = login.getPassword();
 
         //TODO implement logic to verify user credentials
@@ -49,13 +48,14 @@ public class UserController
         }
 
         String pwd = user.getPassword();
+        String email = user.getEmail();
 
-        if ( !password.equals( pwd ) )
+        if ( !password.equals( pwd ) || !useremail.equals( email ))
         {
             throw new ServletException( "Invalid login. Please check your name and password." );
         }
         //
-        jwtToken = Jwts.builder().setSubject( username ).claim( "roles", "user" ).setIssuedAt( new Date() ).signWith(
+        jwtToken = Jwts.builder().setSubject( email ).claim( "roles", "user" ).setIssuedAt( new Date() ).signWith(
             SignatureAlgorithm.HS256, "secretkey" ).compact();
 
         return new Token( jwtToken );
