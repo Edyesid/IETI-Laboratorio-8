@@ -60,6 +60,8 @@ Why do you think it works now? Discuss your findings with your classmates.
      npm install axios --save
     ````
 
+![](img/5.png)
+
 ##### Implement an API call in the Login View
     
 3. Make a first request to the API to authenticate on the method *componentDidMount()*:
@@ -76,10 +78,16 @@ Why do you think it works now? Discuss your findings with your classmates.
                      console.log(error);
                  });
     ````
-    
+
+![](img/axios.png)
+
 4. Save the returned authentication token into the local storage.
 
 5. Implement the logic to validate if the user has a valid token. Then redirect to the Main View.
+
+![](img/login.png)
+
+![](img/logn2.png)
 
 ##### Make other calls to your API
 
@@ -97,3 +105,5 @@ Why do you think it works now? Discuss your findings with your classmates.
 7. Make a request to the API with the Axios client instance for retrieving the Tasks List.
 
 8. Create an additional call to Post new Tasks to the API.
+
+![](img/6.png)
