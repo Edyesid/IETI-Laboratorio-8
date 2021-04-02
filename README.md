@@ -40,6 +40,8 @@ Why do you think it works now? Discuss your findings with your classmates.
                     	
 5. Implement the logic to verify the user's credentials on the *UserController* and the *UserServiceImpl* classes.
 
+![](img/token.png)
+
 6. Add the *TaskController* and services implemented on the previous lab. Ensure the endpoints are exposed under the */api* path. 
 
 7. Verify that your implementation secures all the exposed methods under the */api* path in your API.
