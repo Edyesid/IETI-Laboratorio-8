@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import './TodoApp.css';
 import {TodoList} from "./TodoList";
-
-
-
-
 import 'react-datepicker/dist/react-datepicker.css';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,6 +8,7 @@ import moment from "moment";
 import FormDialog from './FormDialog';
 import Filter from './Filter';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import axios from 'axios';
 export class TodoApp extends Component {
     constructor(props) {
         super(props);
@@ -187,6 +184,23 @@ export class TodoApp extends Component {
         }
         return [...emails];
     }
+
+    handleList() {
+        axios.get('http://localhost:8080/api',
+        {
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+        }).then(response => {
+            console.log(response.data.body)
+            return response.data.body;
+        }).catch(e => {
+            alert("error!!!");
+            return [];
+        });
+    }
+
     handleSubmit(e) {
 
         e.preventDefault();

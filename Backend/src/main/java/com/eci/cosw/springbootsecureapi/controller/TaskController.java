@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.mashape.unirest.http.Unirest;
 @RestController
 @RequestMapping(value="/api")
+@CrossOrigin(origins = "*")
 public class TaskController {
     @Autowired
     ObjectMapper objectMapper;

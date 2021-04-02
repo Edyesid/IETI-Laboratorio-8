@@ -11,13 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import './Login.css';
+import axios from 'axios';
 
 export class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {username:"", password:""};
-        localStorage.setItem("username","edwin@gmail.com");
-        localStorage.setItem("password", "prueba123");
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -90,11 +89,23 @@ export class Login extends React.Component {
     handleSubmit(e) {
 
         e.preventDefault();
-        if (this.state.username === localStorage.getItem("username") && this.state.password === localStorage.getItem("password")) {
-            localStorage.setItem("isLoggedIn", true);
-            localStorage.setItem("actualPerson", this.state.username);
-        } else {
-            alert("incorrect Username or password!!!");
-        }
+        axios.post('http://localhost:8080/user/login',
+            {
+                "email":this.state.username,
+                "password":this.state.password
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(response => {
+                localStorage.setItem("isLoggedIn", true);
+                localStorage.setItem("actualPerson", this.state.username);
+                localStorage.setItem("username",this.state.username);
+                localStorage.setItem("password", this.state.password);
+                localStorage.setItem("token", response.data.accessToken);
+            }).catch(e => {
+                alert("incorrect Username or password!!!");
+            });
     }
 }

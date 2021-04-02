@@ -5,10 +5,7 @@ import com.eci.cosw.springbootsecureapi.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import java.util.Date;
@@ -19,6 +16,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping( "/user" )
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -26,15 +24,17 @@ public class UserController {
 
     @RequestMapping( value = "/login", method = RequestMethod.POST )
     public Token login( @RequestBody User login )
-        throws ServletException
-    {
+
+        throws ServletException {
 
         String jwtToken = "";
 
-        if ( login.getUsername() == null || login.getPassword() == null )
+        if ( login.getEmail() == null || login.getPassword() == null )
         {
             throw new ServletException( "Please fill in username and password" );
         }
+
+
 
         String useremail = login.getEmail();
         String password = login.getPassword();
@@ -47,17 +47,23 @@ public class UserController {
             throw new ServletException( "User username not found." );
         }
 
+
+        System.out.println(login.getEmail());
+        System.out.println(login.getPassword());
         String pwd = user.getPassword();
         String email = user.getEmail();
 
         if ( !password.equals( pwd ) || !useremail.equals( email ))
         {
+
             throw new ServletException( "Invalid login. Please check your name and password." );
         }
         //
+
+
         jwtToken = Jwts.builder().setSubject( email ).claim( "roles", "user" ).setIssuedAt( new Date() ).signWith(
             SignatureAlgorithm.HS256, "secretkey" ).compact();
-
+        System.out.println("llego  --------------------------5");
         return new Token( jwtToken );
     }
 
